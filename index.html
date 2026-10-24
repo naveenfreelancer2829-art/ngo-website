@@ -1,0 +1,404 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>NGO Organisation Website</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Mulish:wght@400;600;700&display=swap">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+/* Layout: sticky nav, alternating full-width bands, content capped at 1120px */
+:root{
+  --bg:#f7f8f5; --surface:#ffffff; --band:#eaf0ea; --fg:#1d2a24; --muted:#52615a;
+  --line:#d3ddd5; --accent:#1f6b4f; --accent-fg:#ffffff; --warm:#c7752a; --chip:#e1ece4;
+  --display:"Fraunces",Georgia,serif; --body:"Mulish",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121a16; --surface:#1a241f; --band:#17211c; --fg:#e7eee9; --muted:#9fb0a6;
+  --line:#2c3a33; --accent:#5cc29a; --accent-fg:#0d1612; --warm:#e9a15e; --chip:#24332b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121a16; --surface:#1a241f; --band:#17211c; --fg:#e7eee9; --muted:#9fb0a6;
+  --line:#2c3a33; --accent:#5cc29a; --accent-fg:#0d1612; --warm:#e9a15e; --chip:#24332b; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.65}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.2;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.6rem,3vw,2.2rem)}
+h3{font-size:1.15rem}
+p{margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--warm);outline-offset:2px}
+.eyebrow{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--warm);font-weight:700}
+.note{font-size:.85rem;color:var(--muted)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.15rem;color:var(--fg);text-decoration:none}
+.logo{width:36px;height:36px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:var(--accent-fg)}
+nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 14px}
+nav a{color:var(--fg);text-decoration:none;font-size:.88rem;font-weight:600}
+nav a:hover{color:var(--accent)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:6px 10px;font:inherit}
+@media(max-width:900px){.menu-btn{display:block}nav{display:none;padding-bottom:12px}nav.open{display:block}nav ul{flex-direction:column;gap:8px}}
+section{padding-block:64px}
+section.alt{background:var(--band)}
+.head{display:grid;gap:8px;margin-bottom:28px;max-width:65ch}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.btn{display:inline-block;background:var(--accent);color:var(--accent-fg);padding:12px 22px;border-radius:6px;font-weight:700;text-decoration:none;border:0;font:inherit;font-weight:700;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+/* hero */
+.hero{padding-block:72px 56px}
+.hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(2rem,5vw,3.3rem)}
+.hero p.lead{font-size:1.1rem;color:var(--muted);max-width:55ch;margin-top:16px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.facts{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px;display:grid;gap:14px}
+.facts div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:10px;font-size:.92rem}
+.facts div:last-child{border:0;padding:0}
+.facts span:first-child{color:var(--muted)}
+.facts span:last-child{font-weight:700;text-align:right}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:40px}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{border-left:3px solid var(--warm);padding-left:12px}
+.stat b{font-family:var(--display);font-size:1.8rem;display:block;font-variant-numeric:tabular-nums}
+.stat span{font-size:.85rem;color:var(--muted)}
+/* about */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+ul.ticks{margin:0;padding-left:20px;display:grid;gap:6px}
+/* programmes */
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab{background:var(--chip);border:0;color:var(--fg);padding:8px 16px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--accent-fg)}
+.pill{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--chip);color:var(--accent);justify-self:start}
+.pill.done{color:var(--warm)}
+.meta{font-size:.83rem;color:var(--muted)}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.ph{aspect-ratio:4/3;max-width:100%;border-radius:8px;background:linear-gradient(135deg,var(--chip),var(--line));display:flex;align-items:flex-end;padding:10px;font-size:.82rem;font-weight:600;color:var(--fg);position:relative}
+.ph.vid::after{content:"▶";position:absolute;inset:0;display:grid;place-items:center;font-size:2rem;color:var(--accent)}
+/* tables */
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:.93rem;min-width:520px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+th{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:var(--band)}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums}
+.dl{font-weight:700;font-size:.85rem}
+/* donate */
+.amts{display:flex;flex-wrap:wrap;gap:8px}
+.amt{background:var(--surface);border:2px solid var(--line);color:var(--fg);border-radius:6px;padding:8px 14px;font:inherit;font-weight:700;cursor:pointer;font-variant-numeric:tabular-nums}
+.amt[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+form{display:grid;gap:12px}
+label{display:grid;gap:4px;font-size:.88rem;font-weight:600}
+input,select,textarea{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);width:100%}
+.ok{background:var(--chip);border-radius:8px;padding:12px;font-weight:600}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:.92rem}
+.kv dt{color:var(--muted)}.kv dd{margin:0;font-weight:700;word-break:break-word}
+/* people */
+.person{display:flex;gap:14px;align-items:center}
+.av{flex:none;width:52px;height:52px;border-radius:50%;background:var(--chip);color:var(--accent);display:grid;place-items:center;font-family:var(--display);font-weight:700}
+/* emails */
+.mail{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.mail code{font-size:.92rem;word-break:break-all}
+.copy{background:none;border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:4px 10px;font:inherit;font-size:.8rem;cursor:pointer}
+footer{background:var(--fg);color:var(--bg);padding-block:36px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-size:.88rem}
+footer a{color:var(--bg)}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head><body>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#home"><span class="logo" aria-hidden="true">✦</span>Seva Jyothi Foundation</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+  </div>
+  <nav id="nav" class="wrap">
+    <ul>
+      <li><a href="#home">Home</a></li><li><a href="#about">About Us</a></li>
+      <li><a href="#programmes">Programmes</a></li><li><a href="#gallery">Gallery</a></li>
+      <li><a href="#csr">Collaborations &amp; CSR</a></li><li><a href="#board">Board</a></li>
+      <li><a href="#advisory">Advisory</a></li><li><a href="#awards">Awards</a></li>
+      <li><a href="#reports">Reports</a></li><li><a href="#compliance">Compliance</a></li>
+      <li><a href="#contact">Contact</a></li><li><a href="#donate" style="color:var(--warm)">Donate</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- 2. HOME -->
+<section id="home" class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Registered Non-Profit · Since 2012</p>
+        <h1>Education, health and livelihoods for rural Karnataka</h1>
+        <p class="lead">Seva Jyothi Foundation works with children, women and farming families across 120 villages. We run learning centres, health camps and skill programmes, and we report every rupee we receive.</p>
+        <div class="cta"><a class="btn" href="#donate">Donate now</a><a class="btn ghost" href="#csr">Partner with us (CSR)</a></div>
+      </div>
+      <div class="facts" aria-label="Registration at a glance">
+        <div><span>Legal status</span><span>Registered Trust</span></div>
+        <div><span>12A &amp; 80G</span><span>Approved</span></div>
+        <div><span>CSR-1 Reg. No.</span><span>CSR000XXXXX</span></div>
+        <div><span>NGO Darpan ID</span><span>KA/2016/0XXXXXX</span></div>
+        <div><span>FCRA</span><span>Reg. No. XXXXXXXXX</span></div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>48,500+</b><span>People reached</span></div>
+      <div class="stat"><b>120</b><span>Villages</span></div>
+      <div class="stat"><b>36</b><span>Projects delivered</span></div>
+      <div class="stat"><b>22</b><span>CSR &amp; funding partners</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 1. ABOUT -->
+<section id="about" class="alt">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">About Us</p><h2>Organisation profile</h2>
+      <p>Founded in 2012 by a group of teachers and doctors from Bengaluru, Seva Jyothi Foundation began as a weekend tuition centre in one village. Today it is a registered trust with 64 staff and over 300 volunteers, working with government schools, primary health centres and gram panchayats.</p></div>
+    <div class="grid">
+      <div class="card"><h3>Vision</h3><p>A rural India where every child learns, every family is healthy and every adult can earn a dignified living.</p></div>
+      <div class="card"><h3>Mission</h3><p>To deliver quality education, preventive healthcare and livelihood training to underserved communities through local partnerships and transparent use of funds.</p></div>
+      <div class="card"><h3>Objectives</h3>
+        <ul class="ticks"><li>Improve learning outcomes in government schools</li><li>Provide free primary health screening</li><li>Train women and youth in employable skills</li><li>Promote clean water and sanitation</li><li>Support environmental conservation</li></ul></div>
+      <div class="card"><h3>Background</h3><p>Registered under the Indian Trusts Act on 14 March 2012 in Bengaluru. Areas of work: Ramanagara, Tumakuru, Chikkaballapur and Kolar districts of Karnataka.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. PROGRAMMES -->
+<section id="programmes">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Programmes &amp; Activities</p><h2>Ongoing and completed projects</h2></div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tabOn" aria-selected="true" data-t="on">Ongoing</button>
+      <button class="tab" role="tab" id="tabDone" aria-selected="false" data-t="done">Completed</button>
+    </div>
+    <div class="grid" id="progOn">
+      <div class="card"><span class="pill">Ongoing</span><h3>Vidya Deepa Learning Centres</h3><p>After-school remedial classes in Kannada, English and Maths for Classes 3–8.</p><p class="meta">2019–present · 42 centres · 3,800 students</p></div>
+      <div class="card"><span class="pill">Ongoing</span><h3>Arogya Mobile Health Camps</h3><p>Monthly health screening, anaemia testing and free medicines with partner hospitals.</p><p class="meta">2017–present · 18,000+ patients screened</p></div>
+      <div class="card"><span class="pill">Ongoing</span><h3>Women Skill &amp; Livelihood</h3><p>Tailoring, food processing and digital literacy training linked to self-help groups.</p><p class="meta">2021–present · 1,250 women trained</p></div>
+      <div class="card"><span class="pill">Ongoing</span><h3>Green Villages</h3><p>Tree plantation, rainwater harvesting and lake rejuvenation with gram panchayats.</p><p class="meta">2022–present · 25,000 saplings</p></div>
+    </div>
+    <div class="grid" id="progDone" hidden>
+      <div class="card"><span class="pill done">Completed</span><h3>School Toilet Construction</h3><p>Built separate toilets for girls in 28 government schools.</p><p class="meta">2018–2020 · CSR-funded</p></div>
+      <div class="card"><span class="pill done">Completed</span><h3>COVID-19 Relief</h3><p>Distributed dry ration kits and ran vaccination awareness drives.</p><p class="meta">2020–2021 · 9,400 families</p></div>
+      <div class="card"><span class="pill done">Completed</span><h3>Digital Classrooms</h3><p>Installed smart classrooms with solar backup in 15 schools.</p><p class="meta">2022–2023</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. GALLERY -->
+<section id="gallery" class="alt">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Activity Gallery</p><h2>Photos and videos from the field</h2><p class="note">Replace each tile with real programme photos and video links.</p></div>
+    <div class="gal">
+      <div class="ph">Learning centre, Magadi</div><div class="ph vid">Health camp video</div>
+      <div class="ph">Tailoring batch graduation</div><div class="ph">Tree plantation drive</div>
+      <div class="ph vid">Annual Day 2025</div><div class="ph">School toilet handover</div>
+      <div class="ph">COVID relief kits</div><div class="ph">Smart classroom launch</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. CSR -->
+<section id="csr">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Collaborations &amp; CSR</p><h2>Partner organisations and CSR initiatives</h2>
+      <p>We are registered with the Ministry of Corporate Affairs (Form CSR-1) and eligible to receive CSR funds under Schedule VII of the Companies Act, 2013.</p></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Partner</th><th>Type</th><th>Project</th><th>Period</th></tr></thead>
+      <tbody>
+        <tr><td>Partner Company A Pvt. Ltd.</td><td>CSR</td><td>Digital Classrooms</td><td class="num">2022–2023</td></tr>
+        <tr><td>Partner Company B Ltd.</td><td>CSR</td><td>School Toilet Construction</td><td class="num">2018–2020</td></tr>
+        <tr><td>District Health Office</td><td>Government</td><td>Arogya Health Camps</td><td class="num">2017–present</td></tr>
+        <tr><td>Partner Foundation C</td><td>Grant</td><td>Women Livelihood</td><td class="num">2021–present</td></tr>
+        <tr><td>Partner Hospital D</td><td>Medical partner</td><td>Health Camps</td><td class="num">2019–present</td></tr>
+      </tbody></table></div>
+    <div class="grid" style="margin-top:20px">
+      <div class="card"><h3>Why partner with us</h3><ul class="ticks"><li>Schedule VII aligned projects</li><li>Quarterly utilisation &amp; impact reports</li><li>Site visits on request</li><li>Audited accounts every year</li></ul></div>
+      <div class="card"><h3>CSR enquiries</h3><p>Email <code>csr@sevajyothi.org</code> for project proposals, budgets and MoU templates.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. DONATE -->
+<section id="donate" class="alt">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Donate Us</p><h2>Support our work</h2><p>Donations are eligible for tax exemption under Section 80G of the Income Tax Act. A receipt is issued for every contribution.</p></div>
+    <div class="two">
+      <div class="card">
+        <h3>Donate online</h3>
+        <form id="donForm">
+          <div class="amts" role="group" aria-label="Amount">
+            <button type="button" class="amt" data-a="1000" aria-pressed="false">₹1,000</button>
+            <button type="button" class="amt" data-a="2500" aria-pressed="true">₹2,500</button>
+            <button type="button" class="amt" data-a="5000" aria-pressed="false">₹5,000</button>
+            <button type="button" class="amt" data-a="10000" aria-pressed="false">₹10,000</button>
+          </div>
+          <label for="dAmt">Amount (₹)<input id="dAmt" type="number" min="100" value="2500" required></label>
+          <label for="dName">Full name<input id="dName" required></label>
+          <label for="dEmail">Email<input id="dEmail" type="email" required></label>
+          <label for="dPan">PAN (for 80G receipt)<input id="dPan" maxlength="10" placeholder="ABCDE1234F"></label>
+          <label for="dFor">Direct my gift to<select id="dFor"><option>Where it's needed most</option><option>Education</option><option>Health</option><option>Women livelihood</option><option>Environment</option></select></label>
+          <button class="btn" type="submit">Proceed to secure payment</button>
+          <p class="note">🔒 Payments are processed through an SSL-secured gateway (Razorpay / PayU). Connect your gateway key before going live.</p>
+          <div class="ok" id="donMsg" hidden></div>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Bank transfer / UPI</h3>
+        <dl class="kv">
+          <dt>Account name</dt><dd>Seva Jyothi Foundation</dd>
+          <dt>Bank</dt><dd>State Bank of India, Jayanagar</dd>
+          <dt>Account no.</dt><dd>XXXX XXXX XXXX</dd>
+          <dt>IFSC</dt><dd>SBIN000XXXX</dd>
+          <dt>UPI ID</dt><dd>sevajyothi@sbi</dd>
+          <dt>FCRA account</dt><dd>SBI New Delhi Main Branch (foreign donations only)</dd>
+        </dl>
+        <p class="note">After a bank transfer, email the transaction ID and your PAN to <code>donate@sevajyothi.org</code> for your 80G receipt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. BOARD -->
+<section id="board">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Board Members</p><h2>Board of Trustees</h2></div>
+    <div class="grid">
+      <div class="card person"><span class="av">RK</span><div><h3>Dr. R. Krishnamurthy</h3><p class="meta">Chairman &amp; Managing Trustee</p></div></div>
+      <div class="card person"><span class="av">SP</span><div><h3>Smt. Shobha Prakash</h3><p class="meta">Secretary</p></div></div>
+      <div class="card person"><span class="av">AN</span><div><h3>Sri Anil Nayak</h3><p class="meta">Treasurer</p></div></div>
+      <div class="card person"><span class="av">MV</span><div><h3>Dr. Meera Venkatesh</h3><p class="meta">Trustee</p></div></div>
+      <div class="card person"><span class="av">HG</span><div><h3>Sri H. Gowda</h3><p class="meta">Trustee</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. ADVISORY -->
+<section id="advisory" class="alt">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Advisory Committee</p><h2>Advisory Committee members</h2></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Name</th><th>Area of expertise</th><th>Affiliation</th></tr></thead>
+      <tbody>
+        <tr><td>Prof. S. Ramesh</td><td>Education policy</td><td>Retd. Professor, Bangalore University</td></tr>
+        <tr><td>Dr. Kavitha Rao</td><td>Public health</td><td>Senior Consultant, Community Medicine</td></tr>
+        <tr><td>CA Vinay Shetty</td><td>Finance &amp; audit</td><td>Chartered Accountant</td></tr>
+        <tr><td>Smt. Lakshmi Iyer</td><td>CSR &amp; partnerships</td><td>Former CSR Head, IT sector</td></tr>
+        <tr><td>Adv. Prakash Hegde</td><td>Legal &amp; compliance</td><td>Advocate, High Court of Karnataka</td></tr>
+      </tbody></table></div>
+  </div>
+</section>
+
+<!-- 9. AWARDS -->
+<section id="awards">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Awards &amp; Recognitions</p><h2>Awards, appreciation letters and certificates</h2></div>
+    <div class="grid">
+      <div class="card"><span class="pill">2025</span><h3>Best NGO in Rural Education</h3><p class="meta">State-level award, Dept. of School Education</p><a class="dl" href="#awards">View certificate</a></div>
+      <div class="card"><span class="pill">2023</span><h3>Appreciation Letter</h3><p class="meta">District Commissioner, COVID-19 relief work</p><a class="dl" href="#awards">View letter</a></div>
+      <div class="card"><span class="pill">2022</span><h3>CSR Impact Partner Award</h3><p class="meta">Presented by a corporate partner</p><a class="dl" href="#awards">View certificate</a></div>
+      <div class="card"><span class="pill">2020</span><h3>GuideStar India Transparency Seal</h3><p class="meta">Champion level</p><a class="dl" href="#awards">View certificate</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. REPORTS -->
+<section id="reports" class="alt">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Annual &amp; Audit Reports</p><h2>Financial transparency</h2><p class="note">Upload the PDFs and link each "Download" to the file.</p></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Financial year</th><th>Annual report</th><th>Audited financial statements</th><th>Audit report</th></tr></thead>
+      <tbody>
+        <tr><td class="num">2025–26</td><td><a class="dl" href="#reports">Download PDF</a></td><td><a class="dl" href="#reports">Download PDF</a></td><td><a class="dl" href="#reports">Download PDF</a></td></tr>
+        <tr><td class="num">2024–25</td><td><a class="dl" href="#reports">Download PDF</a></td><td><a class="dl" href="#reports">Download PDF</a></td><td><a class="dl" href="#reports">Download PDF</a></td></tr>
+        <tr><td class="num">2023–24</td><td><a class="dl" href="#reports">Download PDF</a></td><td><a class="dl" href="#reports">Download PDF</a></td><td><a class="dl" href="#reports">Download PDF</a></td></tr>
+        <tr><td class="num">2022–23</td><td><a class="dl" href="#reports">Download PDF</a></td><td><a class="dl" href="#reports">Download PDF</a></td><td><a class="dl" href="#reports">Download PDF</a></td></tr>
+      </tbody></table></div>
+  </div>
+</section>
+
+<!-- 13. COMPLIANCE / OTHER INFO -->
+<section id="compliance">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Other Important Information</p><h2>Registration and statutory compliance</h2></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Document</th><th>Number</th><th>Valid till</th><th>File</th></tr></thead>
+      <tbody>
+        <tr><td>Trust Registration Deed</td><td>BNG-XXXX/2012</td><td>Permanent</td><td><a class="dl" href="#compliance">View</a></td></tr>
+        <tr><td>PAN of Trust</td><td>AAATSXXXXX</td><td>Permanent</td><td><a class="dl" href="#compliance">View</a></td></tr>
+        <tr><td>12A Registration</td><td>AAATSXXXXXE20XXXX</td><td>AY 2029–30</td><td><a class="dl" href="#compliance">View</a></td></tr>
+        <tr><td>80G Approval</td><td>AAATSXXXXXF20XXXX</td><td>AY 2029–30</td><td><a class="dl" href="#compliance">View</a></td></tr>
+        <tr><td>CSR-1 Registration</td><td>CSR000XXXXX</td><td>Permanent</td><td><a class="dl" href="#compliance">View</a></td></tr>
+        <tr><td>NGO Darpan (NITI Aayog)</td><td>KA/2016/0XXXXXX</td><td>Active</td><td><a class="dl" href="#compliance">View</a></td></tr>
+        <tr><td>FCRA Registration</td><td>XXXXXXXXX</td><td>2028</td><td><a class="dl" href="#compliance">View</a></td></tr>
+        <tr><td>Income Tax Returns (last 3 yrs)</td><td>ITR-7</td><td>Filed</td><td><a class="dl" href="#compliance">View</a></td></tr>
+      </tbody></table></div>
+    <div class="grid" style="margin-top:20px">
+      <div class="card"><h3>Key achievements</h3><ul class="ticks"><li>48,500+ beneficiaries since 2012</li><li>Learning levels up 34% in partner schools</li><li>Zero adverse audit remarks in 5 years</li></ul></div>
+      <div class="card"><h3>Policies</h3><ul class="ticks"><li><a href="#compliance">Child Protection Policy</a></li><li><a href="#compliance">POSH Policy</a></li><li><a href="#compliance">Financial &amp; Procurement Policy</a></li><li><a href="#compliance">Conflict of Interest Policy</a></li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 & 12. CONTACT + EMAIL IDS -->
+<section id="contact" class="alt">
+  <div class="wrap">
+    <div class="head"><p class="eyebrow">Contact Us</p><h2>Get in touch</h2></div>
+    <div class="two">
+      <div class="card">
+        <h3>Registered office</h3>
+        <p>Seva Jyothi Foundation<br>No. 00, 1st Main Road, Jayanagar 4th Block<br>Bengaluru, Karnataka 560011</p>
+        <dl class="kv" style="margin-top:8px">
+          <dt>Mobile</dt><dd>+91 98XXX XXXXX</dd>
+          <dt>Landline</dt><dd>080-XXXX XXXX</dd>
+          <dt>Office hours</dt><dd>Mon–Sat, 9:30 am – 5:30 pm</dd>
+          <dt>Website</dt><dd>www.sevajyothi.org</dd>
+        </dl>
+        <form id="conForm" style="margin-top:12px">
+          <label for="cName">Name<input id="cName" required></label>
+          <label for="cMsg">Message<textarea id="cMsg" rows="3" required></textarea></label>
+          <button class="btn" type="submit">Send message</button>
+          <div class="ok" id="conMsg" hidden></div>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Official email IDs</h3>
+        <div class="grid" style="grid-template-columns:1fr;gap:10px" id="mails"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Seva Jyothi Foundation · Registered Trust · 12A &amp; 80G approved</p>
+    <p><a href="#donate">Donate</a> · <a href="#reports">Reports</a> · <a href="#contact">Contact</a></p>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav'),mb=document.getElementById('menuBtn');
+mb.onclick=()=>{const o=nav.classList.toggle('open');mb.setAttribute('aria-expanded',o)};
+nav.querySelectorAll('a').forEach(a=>a.onclick=()=>{nav.classList.remove('open');mb.setAttribute('aria-expanded',false)});
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===t));
+  document.getElementById('progOn').hidden=t.dataset.t!=='on';
+  document.getElementById('progDone').hidden=t.dataset.t!=='done';
+});
+const amt=document.getElementById('dAmt');
+document.querySelectorAll('.amt').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.amt').forEach(x=>x.setAttribute('aria-pressed',x===b));amt.value=b.dataset.a;});
+document.getElementById('donForm').onsubmit=e=>{e.preventDefault();const m=document.getElementById('donMsg');
+  m.textContent='Thank you! You will be redirected to the secure payment gateway for ₹'+Number(amt.value).toLocaleString('en-IN')+' once it is connected.';m.hidden=false;};
+document.getElementById('conForm').onsubmit=e=>{e.preventDefault();const m=document.getElementById('conMsg');
+  m.textContent='Thanks, your message is ready. Connect a form service before launch so it reaches the office inbox.';m.hidden=false;};
+const mails=[['General enquiries','info@sevajyothi.org'],['Donations & 80G receipts','donate@sevajyothi.org'],['CSR partnerships','csr@sevajyothi.org'],['Programmes','programmes@sevajyothi.org'],['Accounts & audit','accounts@sevajyothi.org'],['Volunteering','volunteer@sevajyothi.org']];
+document.getElementById('mails').innerHTML=mails.map(([l,e])=>`<div class="mail"><div><p class="meta">${l}</p><code>${e}</code></div><button class="copy" type="button" data-e="${e}">Copy</button></div>`).join('');
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  navigator.clipboard.writeText(b.dataset.e).then(()=>{b.textContent='Copied'},()=>{const r=document.createRange();r.selectNodeContents(b.previousElementSibling.querySelector('code'));getSelection().removeAllRanges();getSelection().addRange(r);});});
+</script>
+</body></html>
